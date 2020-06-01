@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+<div id="myBtn"><a href="">Vlick Me</a></div>
+<div id="output"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#myBtn a').click(function (e){
+            var url = 'test.php';
+            e.preventDefault();
+            console.log('Clicado');
+            
+            $('#output').load(url, function(responseText, status, xhr){
+                console.log(responseText);
+                console.log(status);
+                console.log(xhr);
+                if(status=='success'){
+                  $('#output').append('Funcionou!')
+                }
+                if(status=='error'){
+                  $('#output').append('Não funcionou!')
+                }
+
+            });
+        });
+  })
+</script>    
+</body>
+</html>

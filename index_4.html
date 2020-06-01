@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+First: <input type="text" id="fname"><br>
+Last: <input type="tex" id="lname">
+<div id="myBtn"><a href="">Click Me</a></div>
+<div id="output"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#myBtn a').click(function (e){
+      var url = 'php.php';
+      e.preventDefault();
+      console.log('Clicado');
+      $.ajax({
+        url: url,
+        type: 'POST',        
+        data:{"fname": $('#fname').val(), "lname": $('#lname').val()},
+        dataType: 'json',
+        success: function(data){
+          console.log(data);
+          $('#output').append('<br>' + data.fname + ' ' + data.lname + ' ' + data.response);
+        },
+        error: function(data){
+          $('#output').empty().append('Não funcionou');
+          $('#output').append(data.statusText);
+          console.log(data);
+        }
+      })
+    })
+  })
+</script>    
+</body>
+</html>

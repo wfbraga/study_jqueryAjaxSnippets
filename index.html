@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+Categoria: <input type="text" id="jcategory" value="nerdy"><br>
+Number of Jokes: <input type="tex" id="jnumber">
+<div id="myBtn"><a href="">Click Me</a></div>
+<div id="output"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#myBtn a').click(function (e){
+      var url = 'http://api.icndb.com/jokes/random/' + $('#jnumber').val();
+
+      var categoria = $('#jcategory').val();
+
+      e.preventDefault();
+      console.log('Clicado');
+      $.ajax({
+        url: url,
+        type: 'GET',        
+        data: {'limitTo':`[${categoria}]`},
+        dataType: 'json',
+        success: function(data){
+          $('#output').empty()
+          $.each(data.value, function(key, index){
+            $('#output').append('<br>' + index.id + ' ' + index.joke);
+          })
+          console.log(data);
+          
+        },
+        error: function(data){
+          $('#output').empty().append('Não funcionou');
+          $('#output').append(data.statusText);
+          console.log(data);
+        }
+      })
+    })
+  })
+</script>    
+</body>
+</html>
